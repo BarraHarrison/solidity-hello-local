@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/BarraHarrison/solidity-hello-local#readme",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "ethers": "^6.15.0",
     "ganache": "^7.9.2",
     "solc": "^0.8.30"
