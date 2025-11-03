@@ -33,11 +33,14 @@ async function main() {
 
     const factory = new ethers.ContractFactory(abi, bytecode, signer);
     const contract = await factory.deploy("Hello, Blockchain!");
+    const balance = await provider.getBalance(signer.address);
 
     await contract.waitForDeployment();
 
     console.log("Contract deployed at:", contract.target);
     console.log("Initial message:", await contract.message());
+    console.log(`Deployer address: ${signer.address}`);
+    console.log(`Balance: ${ethers.formatEther(balance)} ETH`);
     console.log("Using solc version:", solc.version());
 }
 
