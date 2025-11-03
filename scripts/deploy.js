@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const fs = require("fs");
 const path = require("path");
 const solc = require("solc");
@@ -6,7 +8,7 @@ const { ethers } = require("ethers");
 const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
 
 const signer = new ethers.Wallet(
-    "YOUR_GANACHE_PRIVATE_KEY",
+    process.env.GANACHE_PRIVATE_KEY,
     provider
 );
 
