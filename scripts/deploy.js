@@ -38,6 +38,11 @@ async function main() {
 
     console.log("Contract deployed at:", contract.target);
     console.log("Initial message:", await contract.message());
+    console.log("Using solc version:", solc.version());
 }
 
-main().catch((err) => console.error(err));
+main().catch((err) => {
+    console.error("Deployment failed:");
+    console.error(err);
+});
+
