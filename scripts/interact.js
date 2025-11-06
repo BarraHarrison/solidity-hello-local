@@ -23,7 +23,7 @@ const input = {
 const compiled = JSON.parse(solc.compile(JSON.stringify(input)));
 const abi = compiled.contracts["HelloBlockchain.sol"]["HelloBlockchain"].abi;
 
-const CONTRACT_ADDRESS = "0xa0F88d1CCEEe8651631B01825B01CBE627150F16"
+const CONTRACT_ADDRESS = "0x2519B9102E67cb52cB3ED37DD5b1fB6c20DA6F9b"
 
 async function main() {
     const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
