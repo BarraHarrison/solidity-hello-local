@@ -24,3 +24,19 @@ const compiled = JSON.parse(solc.compile(JSON.stringify(input)));
 const abi = compiled.contracts["HelloBlockchain.sol"]["HelloBlockchain"].abi;
 
 const CONTRACT_ADDRESS = "0xa0F88d1CCEEe8651631B01825B01CBE627150F16"
+
+async function main() {
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
+    console.log("Connected to contract at:", CONTRACT_ADDRESS);
+
+    const currentMessage = await contract.message();
+    console.log("Current Message:", currentMessage);
+
+    const tx = await contract.setMessage("Updated from Node.js!");
+    await tx.wait();
+
+    const updatedMessage = await contract.message();
+    console.log("Updated Message:", updatedMessage);
+}
+
+main().catch(console.error);
