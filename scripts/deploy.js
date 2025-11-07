@@ -37,11 +37,31 @@ async function main() {
 
     await contract.waitForDeployment();
 
-    console.log("Contract deployed at:", contract.target);
+    const contractAddress = await contract.getAddress();
+
+    console.log("✅ Contract deployed at:", contractAddress);
     console.log("Initial message:", await contract.message());
-    console.log(`Deployer address: ${signer.address}`);
-    console.log(`Balance: ${ethers.formatEther(balance)} ETH`);
+    console.log("Deployer address:", signer.address);
+    console.log("Balance:", ethers.formatEther(await provider.getBalance(signer.address)), "ETH");
     console.log("Using solc version:", solc.version());
+
+    const buildDir = path.resolve(__dirname, "../build");
+    if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir);
+
+    const deploymentData = {
+        address: contractAddress,
+        abi: abi,
+        network: "Ganache Local",
+        timestamp: new Date().toISOString(),
+    };
+
+    fs.writeFileSync(
+        path.join(buildDir, "deployedContract.json"),
+        JSON.stringify(deploymentData, null, 2)
+    );
+
+    console.log("📝 Deployment data saved to build/deployedContract.json");
+
 }
 
 main().catch((err) => {
