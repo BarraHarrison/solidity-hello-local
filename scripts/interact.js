@@ -9,7 +9,12 @@ const signer = new ethers.Wallet(process.env.GANACHE_PRIVATE_KEY, provider);
 
 const deployedPath = path.resolve(__dirname, "../build", "deployedContract.json");
 
+if (!fs.existsSync(deployedPath)) {
+    console.error("❌ deployedContract.json not found! Please deploy the contract first.");
+    process.exit(1);
+}
 
+const { address: CONTRACT_ADDRESS, abi } = JSON.parse(fs.readFileSync(deployedPath, "utf8"));
 
 async function main() {
     const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
