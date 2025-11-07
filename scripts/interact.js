@@ -17,6 +17,8 @@ if (!fs.existsSync(deployedPath)) {
 const { address: CONTRACT_ADDRESS, abi } = JSON.parse(fs.readFileSync(deployedPath, "utf8"));
 
 async function main() {
+    console.log("Connecting to the deployed contract....");
+
     const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
     console.log("Connected to contract at:", CONTRACT_ADDRESS);
 
@@ -30,4 +32,7 @@ async function main() {
     console.log("Updated Message:", updatedMessage);
 }
 
-main().catch(console.error);
+main().catch((err) => {
+    console.error("Error interacting with contract:");
+    console.error(err);
+});
